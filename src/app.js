@@ -54,22 +54,35 @@ app.get("/weather", (req, res) => {
 			if (error) {
 				return res.send({ error });
 			}
-			forecast(latitude, longitude, (error, { desc, temp, ftemp } = {}) => {
-				if (error) {
-					return res.send({ error });
-				}
-				res.send({
-					location,
-					forecast:
-						"It is " +
-						desc +
-						" and feels like " +
-						ftemp +
-						" degrees but actually " +
-						temp +
-						" degrees hot",
-				});
-			});
+			forecast(
+				latitude,
+				longitude,
+				(error, { desc, temp, ftemp, ccover, rain, humidity, swind } = {}) => {
+					if (error) {
+						return res.send({ error });
+					}
+					res.send({
+						location,
+						forecast:
+							"It is " +
+							desc +
+							" and feels like " +
+							ftemp +
+							" degrees but actually " +
+							temp +
+							" degrees hot. " +
+							"It is " +
+							ccover +
+							" cloudy with " +
+							rain +
+							" chance to rain. All that happening with " +
+							humidity +
+							" humid air and " +
+							swind +
+							" wind speed.",
+					});
+				},
+			);
 		},
 	);
 });
